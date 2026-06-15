@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Routes')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="container">
+    <div th:replace="~{fragments/layout :: flashMessages}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">Routes</h2>
+        <a class="btn btn-primary" th:href="@{/admin/routes/new}">Add Route</a>
+    </div>
+
+    <div class="card page-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Route Name</th>
+                    <th>Pickup Points</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="route : ${routes}">
+                    <td th:text="${route.id}">1</td>
+                    <td th:text="${route.routeName}">Route Name</td>
+                    <td th:text="${route.pickupPoints}">Pickup Points</td>
+                    <td><a class="btn btn-sm btn-outline-primary" th:href="@{/admin/routes/edit/{id}(id=${route.id})}">Edit</a></td>
+                    <td><a class="btn btn-sm btn-outline-danger" th:href="@{/admin/routes/delete/{id}(id=${route.id})}">Delete</a></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(routes)}">
+                    <td colspan="5" class="text-center py-4 text-muted">No routes added yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

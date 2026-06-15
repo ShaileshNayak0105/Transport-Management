@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Admin Dashboard')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="container">
+    <div th:replace="~{fragments/layout :: flashMessages}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Admin Dashboard</h2>
+            <p class="text-muted mb-0">Overview of transport records and quick access to management screens.</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="card page-card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Students</h6>
+                    <h3 th:text="${studentCount}">0</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card page-card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Parents</h6>
+                    <h3 th:text="${parentCount}">0</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card page-card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Buses</h6>
+                    <h3 th:text="${busCount}">0</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card page-card h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Routes</h6>
+                    <h3 th:text="${routeCount}">0</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card page-card">
+        <div class="card-body">
+            <h5 class="fw-semibold mb-3">Quick Actions</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a class="btn btn-primary" th:href="@{/admin/students/new}">Add Student</a>
+                <a class="btn btn-outline-primary" th:href="@{/admin/parents/new}">Add Parent</a>
+                <a class="btn btn-outline-primary" th:href="@{/admin/buses/new}">Add Bus</a>
+                <a class="btn btn-outline-primary" th:href="@{/admin/routes/new}">Add Route</a>
+            </div>
+            <p class="text-muted mb-0 mt-3">Drivers available in the system: <strong th:text="${driverCount}">0</strong></p>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

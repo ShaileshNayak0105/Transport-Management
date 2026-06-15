@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">SchoolBus Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark brand-bar shadow-sm" th:fragment="navbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/dashboard}">SchoolBus Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/admin/students}">Students</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/admin/buses}">Buses</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/admin/routes}">Routes</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/admin/drivers}">Drivers</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/admin/parents}">Parents</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('PARENT')">
+                    <a class="nav-link" th:href="@{/parent/dashboard}">Dashboard</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-3" sec:authorize="isAuthenticated()">
+                <span class="small text-white-50" th:text="${#authentication.name}">user@example.com</span>
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button class="btn btn-light btn-sm" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="mb-4" th:fragment="flashMessages">
+    <div class="alert alert-success alert-dismissible fade show" th:if="${successMessage}">
+        <span th:text="${successMessage}">Action completed successfully.</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" th:if="${errorMessage}">
+        <span th:text="${errorMessage}">Something went wrong.</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+<footer class="py-4 mt-5 border-top bg-white" th:fragment="footer">
+    <div class="container text-center text-muted small">
+        SchoolBus Manager
+    </div>
+</footer>
+
+<script th:fragment="scripts" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

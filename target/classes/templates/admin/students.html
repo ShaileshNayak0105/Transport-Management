@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Students')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="container">
+    <div th:replace="~{fragments/layout :: flashMessages}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">Students</h2>
+        <a class="btn btn-primary" th:href="@{/admin/students/new}">Add Student</a>
+    </div>
+
+    <div class="card page-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Class</th>
+                    <th>Bus</th>
+                    <th>Route</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}">1</td>
+                    <td th:text="${student.name}">Student Name</td>
+                    <td th:text="${student.age}">10</td>
+                    <td th:text="${student.className}">Class</td>
+                    <td th:text="${student.bus != null ? student.bus.busNumber : 'Not Assigned'}">Bus</td>
+                    <td th:text="${student.route != null ? student.route.routeName : 'Not Assigned'}">Route</td>
+                    <td><a class="btn btn-sm btn-outline-primary" th:href="@{/admin/students/edit/{id}(id=${student.id})}">Edit</a></td>
+                    <td><a class="btn btn-sm btn-outline-danger" th:href="@{/admin/students/delete/{id}(id=${student.id})}">Delete</a></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(students)}">
+                    <td colspan="8" class="text-center py-4 text-muted">No students added yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

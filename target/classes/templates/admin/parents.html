@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Parents')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="container">
+    <div th:replace="~{fragments/layout :: flashMessages}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">Parents</h2>
+        <a class="btn btn-primary" th:href="@{/admin/parents/new}">Add Parent</a>
+    </div>
+
+    <div class="card page-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Linked Student</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="parent : ${parents}">
+                    <td th:text="${parent.id}">1</td>
+                    <td th:text="${parent.name}">Parent Name</td>
+                    <td th:text="${parent.email}">Email</td>
+                    <td th:text="${parent.student != null ? parent.student.name : 'Not Linked'}">Student</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(parents)}">
+                    <td colspan="4" class="text-center py-4 text-muted">No parents added yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${formTitle})}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="container">
+    <div th:replace="~{fragments/layout :: flashMessages}"></div>
+    <div class="card page-card">
+        <div class="card-body p-4">
+            <h2 class="fw-bold mb-4" th:text="${formTitle}">Add Student</h2>
+            <form th:action="${formAction}" th:object="${createStudentRequest}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Student Name</label>
+                        <input type="text" th:field="*{name}" class="form-control">
+                        <div class="text-danger small" th:errors="*{name}"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Age</label>
+                        <input type="number" th:field="*{age}" class="form-control" min="1">
+                        <div class="text-danger small" th:errors="*{age}"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Class Name</label>
+                        <input type="text" th:field="*{className}" class="form-control">
+                        <div class="text-danger small" th:errors="*{className}"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Bus</label>
+                        <select th:field="*{busId}" class="form-select">
+                            <option value="">Select Bus</option>
+                            <option th:each="bus : ${buses}" th:value="${bus.id}" th:text="${bus.busNumber}"></option>
+                        </select>
+                        <div class="text-danger small" th:errors="*{busId}"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Route</label>
+                        <select th:field="*{routeId}" class="form-select">
+                            <option value="">Select Route</option>
+                            <option th:each="route : ${routes}" th:value="${route.id}" th:text="${route.routeName}"></option>
+                        </select>
+                        <div class="text-danger small" th:errors="*{routeId}"></div>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn btn-primary" type="submit" th:text="${formTitle == 'Edit Student' ? 'Update Student' : 'Save Student'}">Save Student</button>
+                    <a class="btn btn-outline-secondary" th:href="@{/admin/students}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>

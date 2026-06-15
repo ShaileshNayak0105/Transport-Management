@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Drivers')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<div class="container">
+    <div th:replace="~{fragments/layout :: flashMessages}"></div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">Drivers</h2>
+        <a class="btn btn-primary" th:href="@{/admin/drivers/new}">Add Driver</a>
+    </div>
+
+    <div class="card page-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="driver : ${drivers}">
+                    <td th:text="${driver.id}">1</td>
+                    <td th:text="${driver.name}">Driver Name</td>
+                    <td th:text="${driver.phone}">Phone</td>
+                    <td><a class="btn btn-sm btn-outline-primary" th:href="@{/admin/drivers/edit/{id}(id=${driver.id})}">Edit</a></td>
+                    <td><a class="btn btn-sm btn-outline-danger" th:href="@{/admin/drivers/delete/{id}(id=${driver.id})}">Delete</a></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(drivers)}">
+                    <td colspan="5" class="text-center py-4 text-muted">No drivers added yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:replace="~{fragments/layout :: scripts}"></script>
+</body>
+</html>
