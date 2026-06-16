@@ -34,31 +34,6 @@ The application uses role-based access:
 - Duplicate email validation
 - Centralized exception handling with user-friendly messages
 
-## Project Structure
-```text
-src/
-└── main/
-    ├── java/com/school/busmanagement/
-    │   ├── config/
-    │   ├── controller/
-    │   ├── dto/
-    │   ├── entity/
-    │   ├── exception/
-    │   ├── repository/
-    │   ├── security/
-    │   └── service/
-    └── resources/
-        ├── static/css/
-        ├── templates/admin/
-        ├── templates/fragments/
-        └── templates/parent/
-```
-
-## Prerequisites
-- Java 17 installed
-- Maven installed and available on `PATH`
-- MySQL Server running
-- A MySQL user with permission to create and update the `bus_management` database
 
 ## MySQL Setup
 Update `src/main/resources/application.properties` with your MySQL username and password:
@@ -233,7 +208,3 @@ routes
    - Access denied behavior from Spring Security
    - Typically `403 Forbidden` or redirect depending on configuration
 
-## Notes For Testing
-- If you changed seeded data or already have existing rows in the database, counts and sample records may differ.
-- If schema changes were made during development, starting with a fresh `bus_management` database can avoid old-column conflicts.
-- The application uses session-based authentication, so log out before switching between Admin and Parent accounts.
